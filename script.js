@@ -67,13 +67,45 @@ function createProjectButton(container, data) {
     btn.innerHTML = `
         <img src="${data.image}" alt="${data.title}">
         <div class="project-text">
-            <h4>${data.title} <button class="solo-btn">solo</button></h4>
+            <h4>${data.title}</h4>
             <p>${data.description}</p>
         </div>
     `;
     container.appendChild(btn);
 
-    btn.querySelector('.solo-btn').addEventListener('click', () => openProjectModal(data));
+    btn.addEventListener('click', () => openProjectFrame(data));
+}
+
+// ==================== MODAL / FRAME ====================
+function openProjectFrame(data) {
+    let frame = document.getElementById('project-frame');
+
+    if (!frame) {
+        frame = document.createElement('div');
+        frame.id = 'project-frame';
+        frame.className = 'project-frame';
+        frame.innerHTML = `
+            <h2 id="frame-title"></h2>
+            <div class="frame-body">
+                <div class="frame-mechanics"></div>
+                <div class="frame-libs"></div>
+                <div class="frame-video"></div>
+            </div>
+            <a id="frame-project-link" target="_blank" class="btn">Go to Project</a>
+        `;
+        document.body.appendChild(frame);
+    }
+
+    frame.querySelector('#frame-title').innerText = data.title;
+    frame.querySelector('.frame-mechanics').innerHTML =
+        '<h4>Mechanics:</h4>' + data.mechanics.map(m => `<div class="frame-small">${m}</div>`).join('');
+    frame.querySelector('.frame-libs').innerHTML =
+        '<h4>Libs:</h4>' + data.libs.map(l => `<div class="frame-small">${l}</div>`).join('');
+    frame.querySelector('.frame-video').innerHTML =
+        `<iframe width="100%" height="360" src="${data.youtube}" frameborder="0" allowfullscreen></iframe>`;
+    frame.querySelector('#frame-project-link').href = data.projectLink;
+
+    frame.style.display = 'flex'; 
 }
 
 function createMechanicButton(container, data) {
@@ -89,42 +121,6 @@ function createMechanicButton(container, data) {
     container.appendChild(btn);
 
     btn.addEventListener('click', () => alert(`Mechanic: ${data.title}`));
-}
-
-// ==================== MODAL ====================
-function openProjectModal(data) {
-    let modal = document.getElementById('project-modal');
-
-    if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'project-modal';
-        modal.className = 'modal';
-        modal.innerHTML = `
-            <div class="modal-content">
-                <span class="close-btn">&times;</span>
-                <h2 id="modal-title"></h2>
-                <div class="modal-body">
-                    <div class="modal-mechanics"></div>
-                    <div class="modal-libs"></div>
-                    <div class="modal-video"></div>
-                </div>
-                <a id="modal-project-link" target="_blank" class="btn">Go to Project</a>
-            </div>
-        `;
-        document.body.appendChild(modal);
-
-        modal.querySelector('.close-btn').addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-    }
-
-    modal.querySelector('#modal-title').innerText = data.title;
-    modal.querySelector('.modal-mechanics').innerHTML = '<h4>Mechanics:</h4>' + data.mechanics.map(m => `<div class="frame-small">${m}</div>`).join('');
-    modal.querySelector('.modal-libs').innerHTML = '<h4>Libs:</h4>' + data.libs.map(l => `<div class="frame-small">${l}</div>`).join('');
-    modal.querySelector('.modal-video').innerHTML = `<iframe width="100%" height="360" src="${data.youtube}" frameborder="0" allowfullscreen></iframe>`;
-    modal.querySelector('#modal-project-link').href = data.projectLink;
-
-    modal.style.display = 'flex';
 }
 
 // ==================== INITIALIZE ====================
