@@ -32,7 +32,7 @@ function showTab(type) {
 // ==================== LOAD PROJECTS AND MECHANICS ====================
 async function loadProjects() {
     const projectsGrid = document.getElementById('projects-grid');
-    projectsGrid.innerHTML = ''; // очистить перед загрузкой
+    projectsGrid.innerHTML = '';
 
     for (const file of PortfolioData.projectFiles) {
         try {
@@ -47,7 +47,7 @@ async function loadProjects() {
 
 async function loadMechanics() {
     const mechanicsGrid = document.getElementById('mechanics-grid');
-    mechanicsGrid.innerHTML = ''; // очистить перед загрузкой
+    mechanicsGrid.innerHTML = '';
 
     for (const file of PortfolioData.mechanicsFiles) {
         try {
@@ -60,45 +60,35 @@ async function loadMechanics() {
     }
 }
 
+// ==================== CREATE BUTTONS ====================
 function createProjectButton(container, data) {
     const btn = document.createElement('div');
     btn.className = 'project-btn';
     btn.innerHTML = `
         <img src="${data.image}" alt="${data.title}">
         <div class="project-text">
-            <h4>${data.title} <span class="solo-btn">solo</span></h4>
+            <h4>${data.title} <button class="solo-btn">solo</button></h4>
             <p>${data.description}</p>
         </div>
     `;
     container.appendChild(btn);
 
-    btn.querySelector('.solo-btn').addEventListener('click', () => {
-        if (btn.nextElementSibling && btn.nextElementSibling.classList.contains('project-frame-bottom')) {
-            return;
-        }
+    btn.querySelector('.solo-btn').addEventListener('click', () => openProjectModal(data));
+}
 
-        const frame = document.createElement('div');
-        frame.className = 'project-frame-bottom';
-        frame.innerHTML = `
-            <h2>${data.title}</h2>
-            <div class="frame-body">
-                <div class="frame-mechanics">
-                    <h4>Mechanics:</h4>
-                    ${data.mechanics.map(m => `<div class="frame-small">${m}</div>`).join('')}
-                </div>
-                <div class="frame-libs">
-                    <h4>Libs:</h4>
-                    ${data.libs.map(l => `<div class="frame-small">${l}</div>`).join('')}
-                </div>
-                <div class="frame-video">
-                    <iframe width="100%" height="360" src="${data.youtube}" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-            <a href="${data.projectLink}" target="_blank" class="btn">Go to Project</a>
-        `;
+function createMechanicButton(container, data) {
+    const btn = document.createElement('div');
+    btn.className = 'mechanic-btn';
+    btn.innerHTML = `
+        <img src="${data.image}" alt="${data.title}">
+        <div class="mechanic-text">
+            <h4>${data.title}</h4>
+            <p>${data.description}</p>
+        </div>
+    `;
+    container.appendChild(btn);
 
-        btn.after(frame);
-    });
+    btn.addEventListener('click', () => alert(`Mechanic: ${data.title}`));
 }
 
 // ==================== MODAL ====================
