@@ -95,38 +95,26 @@ function createMechanicButton(container, data) {
 
 // ==================== MODAL ====================
 function openProjectModal(data) {
-    let modal = document.createElement('div');
-    modal.className = 'modal';
-    modal.innerHTML = `
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>${data.title}</h2>
-            <div class="modal-body">
-                <div class="modal-mechanics">
-                    <h4>Mechanics:</h4>
-                    ${data.mechanics.map(m => `<div class="frame-small">${m}</div>`).join('')}
-                </div>
-                <div class="modal-libs">
-                    <h4>Libs:</h4>
-                    ${data.libs.map(l => `<div class="frame-small">${l}</div>`).join('')}
-                </div>
-                <div class="modal-video">
-                    <iframe width="100%" height="360" src="${data.youtube}" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-            <a href="${data.projectLink}" target="_blank" class="btn">Go to Project</a>
-        </div>
-    `;
+    const modal = document.getElementById('project-modal');
 
-    modal.querySelector('.close-btn').addEventListener('click', () => {
-        modal.remove();
-    });
+    modal.querySelector('#modal-title').innerText = data.title;
+    modal.querySelector('#modal-mechanics').innerHTML =
+        data.mechanics.map(m => `<div class="frame-small">${m}</div>`).join('');
+    modal.querySelector('#modal-libs').innerHTML =
+        data.libs.map(l => `<div class="frame-small">${l}</div>`).join('');
+    modal.querySelector('#modal-video').src = data.youtube;
+    modal.querySelector('#modal-project-link').href = data.projectLink;
 
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) modal.remove();
-    });
+    modal.style.display = 'flex';
 
-    document.body.appendChild(modal);
+    const closeBtn = modal.querySelector('.modal-close');
+    closeBtn.onclick = () => {
+        modal.style.display = 'none';
+    };
+
+    modal.onclick = (e) => {
+        if (e.target === modal) modal.style.display = 'none';
+    };
 }
 
 // ==================== INITIALIZE ====================
