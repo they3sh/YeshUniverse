@@ -134,10 +134,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const pricingData = [
-    { name: "Hourly", price: "1000R$+ / $10+", desc: "Per-Hour" },
-    { name: "Per-Task Commissions", price: "3.000R$+ / $15+", desc: "Individual features" },
-    { name: "Simple Gameplay", price: "20.000R$+ / $100+", desc: "Basic game loops" },
-    { name: "Medium Gameplay", price: "60.000R$+ / $300+", desc: "Medium Difficulty Gameplay" },
+    { name: "Hourly", price: "1000R$+ | $10+", desc: "Per-Hour" },
+    { name: "Per-Task Commissions", price: "3.000R$+ | $15+", desc: "Individual features" },
+    { name: "Simple Gameplay", price: "20.000R$+ | $100+", desc: "Basic game loops" },
+    { name: "Medium Gameplay", price: "60.000R$+ | $300+", desc: "Medium Difficulty Gameplay" },
 ];
 
 const pGrid = document.getElementById('pricing-grid');
