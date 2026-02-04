@@ -4,7 +4,7 @@
   "image": "Media/combat-system.png",
   "solo": false,
   "mechanics": ["Attack", "Block", "Ragdol"],
-  "libs": ["Remote, ProfileStore"],
+  "libs": ["Remote", "ProfileStore"],
   "youtube": "https://www.youtube.com/embed/enBFRkhkdx8?si=JKldqHl5HJ6Dwr3e",
   "projectLink": "https://youtu.be/enBFRkhkdx8?si=5I1Bz6-eYfW48mYQ"
 }
